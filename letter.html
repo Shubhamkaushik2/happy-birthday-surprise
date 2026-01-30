@@ -80,7 +80,7 @@
             min-height: 200px;
         }
 
-        /* Video Section */
+        /* Video Container */
         .video-container {
             position: relative;
             width: 100%;
@@ -89,7 +89,7 @@
             border-radius: 15px;
             overflow: hidden;
             box-shadow: 0 0 20px rgba(106, 76, 147, 0.3), 0 0 30px rgba(255, 215, 232, 0.5);
-            display: block; /* Changed from display: none */
+            display: block;
         }
 
         .video-container video {
@@ -197,14 +197,14 @@
             transform: translateY(1px);
         }
 
-        /* Surprise Modal - Updated */
+        /* Surprise Modal */
         .modal-overlay {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(0, 0, 0, 0.7);
+            background: rgba(0, 0, 0, 0.9);
             display: flex;
             justify-content: center;
             align-items: center;
@@ -216,8 +216,8 @@
 
         .modal {
             background: white;
-            width: 90%;
-            max-width: 800px;
+            width: 95%;
+            max-width: 1200px;
             border-radius: 20px;
             padding: 30px;
             position: relative;
@@ -225,6 +225,8 @@
             transition: all 0.3s ease;
             box-shadow: 0 0 30px rgba(255, 215, 232, 0.8);
             text-align: center;
+            max-height: 90vh;
+            overflow-y: auto;
         }
 
         .modal-overlay.active {
@@ -237,11 +239,11 @@
         }
 
         .modal-header {
-            margin-bottom: 20px;
+            margin-bottom: 30px;
         }
 
         .modal-body {
-            margin-bottom: 30px;
+            margin-bottom: 20px;
         }
 
         .modal-close {
@@ -256,15 +258,42 @@
             z-index: 1001;
         }
 
-        /* Custom Video Container in Modal */
+        /* Videos Grid */
+        .videos-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-bottom: 30px;
+        }
+
+        .video-item {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 15px;
+            padding: 15px;
+            box-shadow: 0 5px 15px rgba(106, 76, 147, 0.2);
+            transition: all 0.3s ease;
+        }
+
+        .video-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(106, 76, 147, 0.3);
+        }
+
+        .video-title {
+            color: #6a4c93;
+            font-size: 1.2rem;
+            margin-bottom: 15px;
+            text-align: center;
+            font-weight: 600;
+        }
+
         .custom-video-container {
             position: relative;
             width: 100%;
             padding-top: 56.25%; /* 16:9 Aspect Ratio */
-            margin-bottom: 20px;
-            border-radius: 15px;
+            border-radius: 10px;
             overflow: hidden;
-            box-shadow: 0 0 20px rgba(106, 76, 147, 0.3);
+            box-shadow: 0 0 15px rgba(106, 76, 147, 0.2);
         }
 
         .custom-video-container video {
@@ -274,7 +303,7 @@
             width: 100%;
             height: 100%;
             object-fit: cover;
-            border-radius: 15px;
+            border-radius: 10px;
         }
 
         .custom-video-overlay {
@@ -297,76 +326,37 @@
             pointer-events: none;
         }
 
-        /* Audio Player Styles */
-        .audio-player {
-            background: rgba(255, 255, 255, 0.9);
-            border-radius: 15px;
-            padding: 20px;
-            margin-top: 20px;
-            box-shadow: 0 5px 15px rgba(106, 76, 147, 0.2);
-        }
-
-        .audio-info {
-            text-align: center;
-            margin-bottom: 15px;
-        }
-
-        .audio-info h4 {
-            color: #6a4c93;
-            margin-bottom: 5px;
-        }
-
-        .audio-controls {
+        /* Navigation for videos */
+        .video-navigation {
             display: flex;
-            align-items: center;
             justify-content: center;
-            gap: 15px;
+            gap: 20px;
+            margin-top: 20px;
         }
 
-        .audio-btn {
+        .nav-btn {
             background: #6a4c93;
             color: white;
             border: none;
-            width: 50px;
-            height: 50px;
-            border-radius: 50%;
+            padding: 10px 20px;
+            border-radius: 25px;
             cursor: pointer;
-            font-size: 1.2rem;
+            font-size: 1rem;
             transition: all 0.3s ease;
-        }
-
-        .audio-btn:hover {
-            background: #8858a3;
-            transform: scale(1.1);
-        }
-
-        .volume-control {
             display: flex;
             align-items: center;
-            gap: 10px;
+            gap: 8px;
         }
 
-        .volume-control i {
-            color: #6a4c93;
-            font-size: 1.2rem;
+        .nav-btn:hover {
+            background: #8858a3;
+            transform: scale(1.05);
         }
 
-        input[type="range"] {
-            width: 100px;
-            height: 5px;
-            -webkit-appearance: none;
-            background: #ddd;
-            border-radius: 5px;
-            outline: none;
-        }
-
-        input[type="range"]::-webkit-slider-thumb {
-            -webkit-appearance: none;
-            width: 15px;
-            height: 15px;
-            background: #6a4c93;
-            border-radius: 50%;
-            cursor: pointer;
+        .nav-btn:disabled {
+            background: #cccccc;
+            cursor: not-allowed;
+            transform: none;
         }
 
         /* Back Button */
@@ -472,21 +462,19 @@
             }
         }
 
-        /* Cursor Effect */
-        .cursor-effect {
-            position: absolute;
-            width: 15px;
-            height: 15px;
-            border-radius: 50%;
-            background: rgba(255, 182, 193, 0.7);
-            pointer-events: none;
-            z-index: 1000;
-            transform: translate(-50%, -50%);
-            transition: opacity 0.5s ease;
-            opacity: 0;
+        /* Responsive Design */
+        @media (max-width: 1024px) {
+            .videos-grid {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+            
+            .modal {
+                width: 98%;
+                padding: 20px;
+            }
         }
 
-        /* Responsive Design */
         @media (max-width: 768px) {
             h1 {
                 font-size: 2rem;
@@ -515,8 +503,11 @@
             }
 
             .modal {
-                width: 95%;
-                padding: 20px;
+                padding: 15px;
+            }
+            
+            .video-title {
+                font-size: 1.1rem;
             }
         }
     </style>
@@ -532,7 +523,7 @@
             <div class="letter" id="typed-text"></div>
         </div>
 
-        <!-- Video Section (always visible) -->
+        <!-- Preview Video -->
         <div class="video-container" id="video-message">
             <div class="video-overlay" id="video-overlay">
                 <div class="play-button" id="play-video-btn">
@@ -540,16 +531,15 @@
                 </div>
             </div>
             <video id="main-video" preload="metadata">
-                <!-- Replace with your actual video file path -->
-                <source src="your-video-file.mp4" type="video/mp4">
-                <source src="your-video-file.webm" type="video/webm">
+                <!-- Replace with preview video or first edit -->
+                <source src="birthday edit1.mp4" type="video/mp4">
                 Your browser does not support the video tag.
             </video>
         </div>
 
         <div class="surprise-button-container">
             <button class="surprise-button" id="surprise-button">
-                Click for a Surprise! 🎁
+                Watch All My Special Edits! 🎬
             </button>
         </div>
 
@@ -560,49 +550,78 @@
         </div>
     </div>
 
-    <!-- Modal for Surprise -->
+    <!-- Modal for All Three Edits -->
     <div class="modal-overlay" id="modal-overlay">
         <div class="modal">
             <button class="modal-close" id="modal-close">×</button>
             <div class="modal-header">
-                <h2>🎉 Your Special Surprise! 🎉</h2>
+                <h2>🎬 My Special Birthday Edits For You! 🎬</h2>
+                <p style="color: #666; margin-top: 10px;">Three special videos made with lots of love! ❤️</p>
             </div>
             <div class="modal-body">
-                <!-- Custom Video in Modal -->
-                <div class="custom-video-container">
-                    <div class="custom-video-overlay" id="custom-video-overlay">
-                        <div class="play-button" id="play-custom-video-btn">
-                            <i class="fas fa-play"></i>
+                <!-- Videos Grid -->
+                <div class="videos-grid" id="videos-grid">
+                    <!-- Edit 1 -->
+                    <div class="video-item">
+                        <div class="video-title">Birthday Edit 1 💝</div>
+                        <div class="custom-video-container">
+                            <div class="custom-video-overlay" id="overlay-1">
+                                <div class="play-button" onclick="playVideo(1)">
+                                    <i class="fas fa-play"></i>
+                                </div>
+                            </div>
+                            <video id="video-1" preload="metadata">
+                                <source src="birthday edit1.mp4" type="video/mp4">
+                                Your browser does not support the video tag.
+                            </video>
                         </div>
                     </div>
-                    <video id="custom-video" preload="metadata">
-                        <!-- Replace with your actual video file path -->
-                        <source src="your-video-file.mp4" type="video/mp4">
-                        <source src="your-video-file.webm" type="video/webm">
-                        Your browser does not support the video tag.
-                    </video>
-                </div>
 
-                <!-- Custom Audio Player -->
-                <div class="audio-player">
-                    <div class="audio-info">
-                        <h4>A Special Message Just For You</h4>
-                        <p>Listen to this heartfelt message</p>
+                    <!-- Edit 2 -->
+                    <div class="video-item">
+                        <div class="video-title">Birthday Edit 2 ✨</div>
+                        <div class="custom-video-container">
+                            <div class="custom-video-overlay" id="overlay-2">
+                                <div class="play-button" onclick="playVideo(2)">
+                                    <i class="fas fa-play"></i>
+                                </div>
+                            </div>
+                            <video id="video-2" preload="metadata">
+                                <source src="birthday edit2.mp4" type="video/mp4">
+                                Your browser does not support the video tag.
+                            </video>
+                        </div>
                     </div>
-                    <div class="audio-controls">
-                        <button class="audio-btn" id="play-audio-btn">
-                            <i class="fas fa-play"></i>
-                        </button>
-                        <div class="volume-control">
-                            <i class="fas fa-volume-up"></i>
-                            <input type="range" id="audio-volume" min="0" max="1" step="0.1" value="0.5">
+
+                    <!-- Edit 3 -->
+                    <div class="video-item">
+                        <div class="video-title">Birthday Edit 3 🎉</div>
+                        <div class="custom-video-container">
+                            <div class="custom-video-overlay" id="overlay-3">
+                                <div class="play-button" onclick="playVideo(3)">
+                                    <i class="fas fa-play"></i>
+                                </div>
+                            </div>
+                            <video id="video-3" preload="metadata">
+                                <source src="birthday edit3.mp4" type="video/mp4">
+                                Your browser does not support the video tag.
+                            </video>
                         </div>
                     </div>
                 </div>
 
-                <div style="margin-top: 20px;">
+                <div class="video-navigation">
+                    <button class="nav-btn" onclick="playAllVideos()">
+                        <i class="fas fa-play-circle"></i> Play All Videos
+                    </button>
+                    <button class="nav-btn" onclick="pauseAllVideos()">
+                        <i class="fas fa-pause-circle"></i> Pause All
+                    </button>
+                </div>
+
+                <div style="margin-top: 30px;">
                     <a href="#" download class="back-button" style="background: #ffb6c1; border-color: #ffb6c1; color: white;">
-                        <i class="fas fa-download"></i> Download Your Digital Gift
+                        <i class="fas fa-heart"></i> Made With Love!
                     </a>
                 </div>
             </div>
@@ -617,14 +636,6 @@
     <!-- Audio Elements -->
     <audio id="click-sound" preload="auto">
         <source src="https://cdn.pixabay.com/download/audio/2021/08/04/audio_bb630cc098.mp3?filename=cute-notification-ringtone-1-173850.mp3" type="audio/mpeg">
-    </audio>
-    
-    <!-- Custom Audio File -->
-    <audio id="custom-audio" preload="metadata">
-        <!-- Replace with your actual audio file path -->
-        <source src="your-audio-file.mp3" type="audio/mpeg">
-        <source src="your-audio-file.ogg" type="audio/ogg">
-        Your browser does not support the audio element.
     </audio>
     
     <!-- Background Music -->
@@ -643,7 +654,7 @@
             }, 500);
 
             // Typewriter effect for letter
-            const letterContent = "Dear wiffy,\n\nAs I sit here thinking about all our memories together, I can't help but smile. From our late-night talks to our spontaneous adventures, you've filled my life with so much joy and laughter. You've been my shoulder to cry on, my partner in crime, and my biggest supporter.\n\nOn your special day, I want you to know how grateful I am to have you in my life. You make every day brighter just by being you - kind, funny, and incredibly thoughtful.\n\nHappy Birthday to my favorite person in the world! Here's to many more years of love, laughter, and creating memories together.\n\nWith all my love,\nYour Shubham";
+            const letterContent = "Dear wiffy,\n\nAs I sit here thinking about all our memories together, I can't help but smile. From our late-night talks to our spontaneous adventures, you've filled my life with so much joy and laughter. You've been my shoulder to cry on, my partner in crime, and my biggest supporter.\n\nOn your special day, I want you to know how grateful I am to have you in my life. You make every day brighter just by being you - kind, funny, and incredibly thoughtful.\n\nI've made three special video edits for you with all our memories! Click the button below to watch them all.\n\nHappy Birthday to my favorite person in the world! Here's to many more years of love, laughter, and creating memories together.\n\nWith all my love,\nYour Shubham";
             
             new Typed('#typed-text', {
                 strings: [letterContent],
@@ -661,46 +672,20 @@
             const mainVideo = document.getElementById('main-video');
             const videoOverlay = document.getElementById('video-overlay');
             const playVideoBtn = document.getElementById('play-video-btn');
-            const customVideo = document.getElementById('custom-video');
-            const customVideoOverlay = document.getElementById('custom-video-overlay');
-            const playCustomVideoBtn = document.getElementById('play-custom-video-btn');
+            
+            // Video array for easy access
+            const videos = [
+                null, // index 0 empty for easy 1-based access
+                { element: document.getElementById('video-1'), overlay: document.getElementById('overlay-1') },
+                { element: document.getElementById('video-2'), overlay: document.getElementById('overlay-2') },
+                { element: document.getElementById('video-3'), overlay: document.getElementById('overlay-3') }
+            ];
 
-            // Audio Elements
-            const customAudio = document.getElementById('custom-audio');
-            const playAudioBtn = document.getElementById('play-audio-btn');
-            const audioVolume = document.getElementById('audio-volume');
-            let isAudioPlaying = false;
-
-            // Play main video
+            // Play preview video
             playVideoBtn.addEventListener('click', function() {
                 mainVideo.play();
                 videoOverlay.classList.add('hidden');
                 mainVideo.controls = true;
-            });
-
-            // Play custom video in modal
-            playCustomVideoBtn.addEventListener('click', function() {
-                customVideo.play();
-                customVideoOverlay.classList.add('hidden');
-                customVideo.controls = true;
-            });
-
-            // Custom audio controls
-            playAudioBtn.addEventListener('click', function() {
-                if (isAudioPlaying) {
-                    customAudio.pause();
-                    playAudioBtn.innerHTML = '<i class="fas fa-play"></i>';
-                    isAudioPlaying = false;
-                } else {
-                    customAudio.play().catch(e => console.log('Audio play error:', e));
-                    playAudioBtn.innerHTML = '<i class="fas fa-pause"></i>';
-                    isAudioPlaying = true;
-                }
-            });
-
-            // Audio volume control
-            audioVolume.addEventListener('input', function() {
-                customAudio.volume = this.value;
             });
 
             // Create floating elements
@@ -734,29 +719,20 @@
                 clickSound.play();
                 modalOverlay.classList.add('active');
                 confetti({
-                    particleCount: 100,
-                    spread: 70,
+                    particleCount: 150,
+                    spread: 100,
                     origin: { y: 0.6 }
                 });
                 
-                // Reset videos and audio in modal
-                customVideo.pause();
-                customVideo.currentTime = 0;
-                customVideoOverlay.classList.remove('hidden');
-                customVideo.controls = false;
-                
-                customAudio.pause();
-                customAudio.currentTime = 0;
-                isAudioPlaying = false;
-                playAudioBtn.innerHTML = '<i class="fas fa-play"></i>';
+                // Reset all videos
+                pauseAllVideos();
             });
 
             modalClose.addEventListener('click', function() {
                 modalOverlay.classList.remove('active');
-                // Pause videos and audio when modal closes
+                // Pause all videos when modal closes
+                pauseAllVideos();
                 mainVideo.pause();
-                customVideo.pause();
-                customAudio.pause();
             });
 
             // Music controls
@@ -778,15 +754,22 @@
                 isMusicPlaying = !isMusicPlaying;
             });
 
-            // Video ended event for overlays
+            // Video ended events
             mainVideo.addEventListener('ended', function() {
                 videoOverlay.classList.remove('hidden');
                 this.controls = false;
             });
 
-            customVideo.addEventListener('ended', function() {
-                customVideoOverlay.classList.remove('hidden');
-                this.controls = false;
+            // Setup video ended events for all three videos
+            videos.forEach((video, index) => {
+                if (video && video.element) {
+                    video.element.addEventListener('ended', function() {
+                        if (videos[index]) {
+                            videos[index].overlay.classList.remove('hidden');
+                            this.controls = false;
+                        }
+                    });
+                }
             });
 
             // Helper Functions
@@ -842,6 +825,43 @@
                 }, 10);
             }
         });
+
+        // Video control functions
+        function playVideo(videoNumber) {
+            if (videoNumber >= 1 && videoNumber <= 3) {
+                const video = document.getElementById(`video-${videoNumber}`);
+                const overlay = document.getElementById(`overlay-${videoNumber}`);
+                
+                video.play();
+                overlay.classList.add('hidden');
+                video.controls = true;
+            }
+        }
+
+        function pauseAllVideos() {
+            // Pause all three videos
+            for (let i = 1; i <= 3; i++) {
+                const video = document.getElementById(`video-${i}`);
+                const overlay = document.getElementById(`overlay-${i}`);
+                
+                if (video) {
+                    video.pause();
+                    video.currentTime = 0;
+                }
+                if (overlay) {
+                    overlay.classList.remove('hidden');
+                }
+            }
+        }
+
+        function playAllVideos() {
+            // Play videos sequentially with a delay
+            for (let i = 1; i <= 3; i++) {
+                setTimeout(() => {
+                    playVideo(i);
+                }, (i - 1) * 500); // Start each video 0.5 seconds after the previous
+            }
+        }
     </script>
 </body>
 </html>
