@@ -80,8 +80,8 @@
             min-height: 200px;
         }
 
+        /* Video Section */
         .video-container {
-            display: none;
             position: relative;
             width: 100%;
             padding-top: 56.25%; /* 16:9 Aspect Ratio */
@@ -89,15 +89,62 @@
             border-radius: 15px;
             overflow: hidden;
             box-shadow: 0 0 20px rgba(106, 76, 147, 0.3), 0 0 30px rgba(255, 215, 232, 0.5);
+            display: block; /* Changed from display: none */
         }
 
-        .video-container iframe {
+        .video-container video {
             position: absolute;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            border: none;
+            object-fit: cover;
+            border-radius: 15px;
+        }
+
+        .video-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 2;
+            opacity: 1;
+            transition: opacity 0.5s ease;
+        }
+
+        .video-overlay.hidden {
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        .play-button {
+            width: 80px;
+            height: 80px;
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 0 20px rgba(255, 255, 255, 0.5);
+        }
+
+        .play-button:hover {
+            transform: scale(1.1);
+            background: rgba(255, 255, 255, 1);
+            box-shadow: 0 0 30px rgba(255, 255, 255, 0.8);
+        }
+
+        .play-button i {
+            font-size: 2.5rem;
+            color: #6a4c93;
+            margin-left: 5px;
         }
 
         /* Surprise Button */
@@ -150,7 +197,7 @@
             transform: translateY(1px);
         }
 
-        /* Surprise Modal */
+        /* Surprise Modal - Updated */
         .modal-overlay {
             position: fixed;
             top: 0;
@@ -170,7 +217,7 @@
         .modal {
             background: white;
             width: 90%;
-            max-width: 600px;
+            max-width: 800px;
             border-radius: 20px;
             padding: 30px;
             position: relative;
@@ -206,61 +253,120 @@
             background: none;
             border: none;
             cursor: pointer;
+            z-index: 1001;
         }
 
-        /* Playlist Styling */
-        .playlist {
+        /* Custom Video Container in Modal */
+        .custom-video-container {
+            position: relative;
+            width: 100%;
+            padding-top: 56.25%; /* 16:9 Aspect Ratio */
+            margin-bottom: 20px;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 0 20px rgba(106, 76, 147, 0.3);
+        }
+
+        .custom-video-container video {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 15px;
+        }
+
+        .custom-video-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 2;
+            opacity: 1;
+            transition: opacity 0.5s ease;
+        }
+
+        .custom-video-overlay.hidden {
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        /* Audio Player Styles */
+        .audio-player {
             background: rgba(255, 255, 255, 0.9);
             border-radius: 15px;
             padding: 20px;
-            max-height: 300px;
-            overflow-y: auto;
+            margin-top: 20px;
+            box-shadow: 0 5px 15px rgba(106, 76, 147, 0.2);
         }
 
-        .playlist-item {
+        .audio-info {
+            text-align: center;
+            margin-bottom: 15px;
+        }
+
+        .audio-info h4 {
+            color: #6a4c93;
+            margin-bottom: 5px;
+        }
+
+        .audio-controls {
             display: flex;
             align-items: center;
-            margin-bottom: 10px;
-            padding: 10px;
-            border-radius: 10px;
-            background: rgba(240, 240, 255, 0.7);
-            transition: all 0.2s ease;
+            justify-content: center;
+            gap: 15px;
         }
 
-        .playlist-item:hover {
-            background: rgba(225, 225, 255, 0.9);
-            transform: translateX(5px);
-        }
-
-        .playlist-item img {
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            margin-right: 15px;
-            object-fit: cover;
-        }
-
-        .playlist-item-info {
-            flex-grow: 1;
-            text-align: left;
-        }
-
-        .playlist-item-title {
-            font-weight: bold;
-            color: #6a4c93;
-        }
-
-        .playlist-item-artist {
-            font-size: 0.9rem;
-            color: #888;
-        }
-
-        .playlist-item-play {
-            background: none;
+        .audio-btn {
+            background: #6a4c93;
+            color: white;
             border: none;
-            color: #6a4c93;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
             cursor: pointer;
             font-size: 1.2rem;
+            transition: all 0.3s ease;
+        }
+
+        .audio-btn:hover {
+            background: #8858a3;
+            transform: scale(1.1);
+        }
+
+        .volume-control {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .volume-control i {
+            color: #6a4c93;
+            font-size: 1.2rem;
+        }
+
+        input[type="range"] {
+            width: 100px;
+            height: 5px;
+            -webkit-appearance: none;
+            background: #ddd;
+            border-radius: 5px;
+            outline: none;
+        }
+
+        input[type="range"]::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            width: 15px;
+            height: 15px;
+            background: #6a4c93;
+            border-radius: 50%;
+            cursor: pointer;
         }
 
         /* Back Button */
@@ -407,6 +513,11 @@
                 max-width: 40px;
                 max-height: 40px;
             }
+
+            .modal {
+                width: 95%;
+                padding: 20px;
+            }
         }
     </style>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -421,9 +532,19 @@
             <div class="letter" id="typed-text"></div>
         </div>
 
+        <!-- Video Section (always visible) -->
         <div class="video-container" id="video-message">
-            <!-- Replace with your video embed code -->
-            <iframe src="about:blank" frameborder="0" allowfullscreen></iframe>
+            <div class="video-overlay" id="video-overlay">
+                <div class="play-button" id="play-video-btn">
+                    <i class="fas fa-play"></i>
+                </div>
+            </div>
+            <video id="main-video" preload="metadata">
+                <!-- Replace with your actual video file path -->
+                <source src="your-video-file.mp4" type="video/mp4">
+                <source src="your-video-file.webm" type="video/webm">
+                Your browser does not support the video tag.
+            </video>
         </div>
 
         <div class="surprise-button-container">
@@ -437,6 +558,7 @@
                 <i class="fas fa-arrow-left"></i> Back to Birthday Cake
             </a>
         </div>
+    </div>
 
     <!-- Modal for Surprise -->
     <div class="modal-overlay" id="modal-overlay">
@@ -446,49 +568,38 @@
                 <h2>🎉 Your Special Surprise! 🎉</h2>
             </div>
             <div class="modal-body">
-                <div class="playlist">
-                    <h3 style="margin-bottom: 15px;">Songs That Remind Me of Us 💕</h3>
-                    <div class="playlist-item">
-                        <img src="3.jpg" alt="Song cover">
-                        <div class="playlist-item-info">
-                            <div class="playlist-item-title">Our Favorite Memory</div>
-                            <div class="playlist-item-artist">That Artist You Love</div>
+                <!-- Custom Video in Modal -->
+                <div class="custom-video-container">
+                    <div class="custom-video-overlay" id="custom-video-overlay">
+                        <div class="play-button" id="play-custom-video-btn">
+                            <i class="fas fa-play"></i>
                         </div>
-                        <button class="playlist-item-play"><i class="fas fa-play"></i></button>
                     </div>
-                    <div class="playlist-item">
-                        <img src="1.jpg" alt="Song cover">
-                        <div class="playlist-item-info">
-                            <div class="playlist-item-title">That Summer Night</div>
-                            <div class="playlist-item-artist">The Adventure Band</div>
-                        </div>
-                        <button class="playlist-item-play"><i class="fas fa-play"></i></button>
+                    <video id="custom-video" preload="metadata">
+                        <!-- Replace with your actual video file path -->
+                        <source src="your-video-file.mp4" type="video/mp4">
+                        <source src="your-video-file.webm" type="video/webm">
+                        Your browser does not support the video tag.
+                    </video>
+                </div>
+
+                <!-- Custom Audio Player -->
+                <div class="audio-player">
+                    <div class="audio-info">
+                        <h4>A Special Message Just For You</h4>
+                        <p>Listen to this heartfelt message</p>
                     </div>
-                    <div class="playlist-item">
-                        <img src="6.jpg" alt="Song cover">
-                        <div class="playlist-item-info">
-                            <div class="playlist-item-title">Inside Joke Anthem</div>
-                            <div class="playlist-item-artist">Laugh Out Loud</div>
+                    <div class="audio-controls">
+                        <button class="audio-btn" id="play-audio-btn">
+                            <i class="fas fa-play"></i>
+                        </button>
+                        <div class="volume-control">
+                            <i class="fas fa-volume-up"></i>
+                            <input type="range" id="audio-volume" min="0" max="1" step="0.1" value="0.5">
                         </div>
-                        <button class="playlist-item-play"><i class="fas fa-play"></i></button>
-                    </div>
-                    <div class="playlist-item">
-                        <img src="2.jpeg" alt="Song cover">
-                        <div class="playlist-item-info">
-                            <div class="playlist-item-title">Remember When</div>
-                            <div class="playlist-item-artist">The Friendship Vibes</div>
-                        </div>
-                        <button class="playlist-item-play"><i class="fas fa-play"></i></button>
-                    </div>
-                    <div class="playlist-item">
-                        <img src="5.jpg" alt="Song cover">
-                        <div class="playlist-item-info">
-                            <div class="playlist-item-title">Birthday Wishes</div>
-                            <div class="playlist-item-artist">Happy Songs</div>
-                        </div>
-                        <button class="playlist-item-play"><i class="fas fa-play"></i></button>
                     </div>
                 </div>
+
                 <div style="margin-top: 20px;">
                     <a href="#" download class="back-button" style="background: #ffb6c1; border-color: #ffb6c1; color: white;">
                         <i class="fas fa-download"></i> Download Your Digital Gift
@@ -507,6 +618,16 @@
     <audio id="click-sound" preload="auto">
         <source src="https://cdn.pixabay.com/download/audio/2021/08/04/audio_bb630cc098.mp3?filename=cute-notification-ringtone-1-173850.mp3" type="audio/mpeg">
     </audio>
+    
+    <!-- Custom Audio File -->
+    <audio id="custom-audio" preload="metadata">
+        <!-- Replace with your actual audio file path -->
+        <source src="your-audio-file.mp3" type="audio/mpeg">
+        <source src="your-audio-file.ogg" type="audio/ogg">
+        Your browser does not support the audio element.
+    </audio>
+    
+    <!-- Background Music -->
     <audio id="background-music" loop>
         <source src="https://cdn.pixabay.com/download/audio/2022/03/15/audio_c8c8a73467.mp3?filename=relaxing-145038.mp3" type="audio/mpeg">
     </audio>
@@ -534,6 +655,52 @@
                         document.querySelector('.surprise-button').classList.add('animate__animated', 'animate__pulse', 'animate__infinite');
                     }, 1000);
                 }
+            });
+
+            // Video Elements
+            const mainVideo = document.getElementById('main-video');
+            const videoOverlay = document.getElementById('video-overlay');
+            const playVideoBtn = document.getElementById('play-video-btn');
+            const customVideo = document.getElementById('custom-video');
+            const customVideoOverlay = document.getElementById('custom-video-overlay');
+            const playCustomVideoBtn = document.getElementById('play-custom-video-btn');
+
+            // Audio Elements
+            const customAudio = document.getElementById('custom-audio');
+            const playAudioBtn = document.getElementById('play-audio-btn');
+            const audioVolume = document.getElementById('audio-volume');
+            let isAudioPlaying = false;
+
+            // Play main video
+            playVideoBtn.addEventListener('click', function() {
+                mainVideo.play();
+                videoOverlay.classList.add('hidden');
+                mainVideo.controls = true;
+            });
+
+            // Play custom video in modal
+            playCustomVideoBtn.addEventListener('click', function() {
+                customVideo.play();
+                customVideoOverlay.classList.add('hidden');
+                customVideo.controls = true;
+            });
+
+            // Custom audio controls
+            playAudioBtn.addEventListener('click', function() {
+                if (isAudioPlaying) {
+                    customAudio.pause();
+                    playAudioBtn.innerHTML = '<i class="fas fa-play"></i>';
+                    isAudioPlaying = false;
+                } else {
+                    customAudio.play().catch(e => console.log('Audio play error:', e));
+                    playAudioBtn.innerHTML = '<i class="fas fa-pause"></i>';
+                    isAudioPlaying = true;
+                }
+            });
+
+            // Audio volume control
+            audioVolume.addEventListener('input', function() {
+                customAudio.volume = this.value;
             });
 
             // Create floating elements
@@ -571,10 +738,25 @@
                     spread: 70,
                     origin: { y: 0.6 }
                 });
+                
+                // Reset videos and audio in modal
+                customVideo.pause();
+                customVideo.currentTime = 0;
+                customVideoOverlay.classList.remove('hidden');
+                customVideo.controls = false;
+                
+                customAudio.pause();
+                customAudio.currentTime = 0;
+                isAudioPlaying = false;
+                playAudioBtn.innerHTML = '<i class="fas fa-play"></i>';
             });
 
             modalClose.addEventListener('click', function() {
                 modalOverlay.classList.remove('active');
+                // Pause videos and audio when modal closes
+                mainVideo.pause();
+                customVideo.pause();
+                customAudio.pause();
             });
 
             // Music controls
@@ -594,6 +776,17 @@
                     musicIcon.classList.add('fa-volume-up');
                 }
                 isMusicPlaying = !isMusicPlaying;
+            });
+
+            // Video ended event for overlays
+            mainVideo.addEventListener('ended', function() {
+                videoOverlay.classList.remove('hidden');
+                this.controls = false;
+            });
+
+            customVideo.addEventListener('ended', function() {
+                customVideoOverlay.classList.remove('hidden');
+                this.controls = false;
             });
 
             // Helper Functions
@@ -651,5 +844,4 @@
         });
     </script>
 </body>
-
 </html>
